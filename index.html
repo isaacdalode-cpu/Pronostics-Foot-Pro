@@ -15,8 +15,8 @@
         /* Date & Nav */
         .date-bar { display: flex; justify-content: space-between; padding: 10px; border-bottom: 1px solid #ddd; background: #fff; font-weight: bold; }
         .nav-tabs { display: flex; overflow-x: auto; background: #fff; border-bottom: 1px solid #ddd; }
-        .tab { padding: 15px; cursor: pointer; white-space: nowrap; font-size: 0.9em; }
-        .tab.active { border-bottom: 3px solid #3498db; color: #3498db; }
+        .tab { padding: 15px; cursor: pointer; white-space: nowrap; font-size: 0.9em; flex: 1; text-align: center; }
+        .tab.active { border-bottom: 3px solid #3498db; color: #3498db; font-weight: bold; }
 
         /* Telegram Box */
         .telegram { background: #e8f4fd; padding: 20px; text-align: center; margin: 10px; border-radius: 8px; }
@@ -25,6 +25,7 @@
         /* Table */
         table { width: 100%; border-collapse: collapse; margin-top: 10px; }
         th, td { padding: 12px; border-bottom: 1px solid #eee; text-align: center; }
+        th { background: #f8f9fa; color: #555; }
         .match-name { text-align: left; font-size: 0.9em; }
         .pred { font-weight: bold; color: #2c3e50; background: #eee; padding: 5px 10px; border-radius: 4px; }
     </style>
@@ -37,9 +38,9 @@
     <div class="date-bar"><span>&lt;</span> 30 Mai <span>&gt;</span></div>
     
     <div class="nav-tabs">
-        <div class="tab active">Predictions 1X2</div>
-        <div class="tab">Under/Over 2.5</div>
-        <div class="tab">BTTS</div>
+        <div class="tab active" onclick="filtrerOnglet('1X2')">Predictions 1X2</div>
+        <div class="tab" onclick="filtrerOnglet('OVER')">Under/Over 2.5</div>
+        <div class="tab" onclick="filtrerOnglet('BTTS')">BTTS</div>
     </div>
 
     <div class="telegram">
@@ -48,23 +49,55 @@
     </div>
 
     <table>
-        <thead><tr><th>Heure</th><th>Match</th><th>Pronostic</th></tr></thead>
+        <thead>
+            <tr><th>Heure</th><th>Match</th><th>Pronostic</th></tr>
+        </thead>
         <tbody id="match-body">
-            </tbody>
+            <!-- Les matchs seront insérés ici par JavaScript -->
+        </tbody>
     </table>
 </div>
 
 <script>
-    // FACILE : Modifiez uniquement cette liste pour mettre à jour vos matchs !
-    const matchs = [
-        { heure: "19:30", match: "Gimnasia vs Belgrano", pred: "2" },
-        { heure: "22:00", match: "Instituto vs Lanus", pred: "1" }
-    ];
+    // Base de données des matchs classés par onglet
+    const donneesMatchs = {
+        "1X2": [
+            { heure: "19:30", match: "Gimnasia vs Belgrano", pred: "2" },
+            { heure: "22:00", match: "Instituto vs Lanus", pred: "1" }
+        ],
+        "OVER": [
+            { heure: "19:30", match: "Gimnasia vs Belgrano", pred: "Over 2.5" },
+            { heure: "22:00", match: "Instituto vs Lanus", pred: "Under 2.5" }
+        ],
+        "BTTS": [
+            { heure: "19:30", match: "Gimnasia vs Belgrano", pred: "Oui" },
+            { heure: "22:00", match: "Instituto vs Lanus", pred: "Non" }
+        ]
+    };
 
-    const body = document.getElementById('match-body');
-    matchs.forEach(m => {
-        body.innerHTML += `<tr><td>${m.heure}</td><td class="match-name">${m.match}</td><td><span class="pred">${m.pred}</span></td></tr>`;
-    });
+    function filtrerOnglet(categorie) {
+        // Mettre à jour l'onglet actif
+        const onglets = document.querySelectorAll('.tab');
+        onglets.forEach(tab => tab.classList.remove('active'));
+        event.currentTarget.classList.add('active');
+
+        // Afficher les matchs correspondants
+        const corpsTableau = document.getElementById('match-body');
+        corpsTableau.innerHTML = ""; // Vider le tableau
+        
+        const matchsDuJour = donneesMatchs[categorie] || [];
+        matchsDuJour.forEach(m => {
+            corpsTableau.innerHTML += `
+                <tr>
+                    <td>${m.heure}</td>
+                    <td class="match-name">${m.match}</td>
+                    <td><span class="pred">${m.pred}</span></td>
+                </tr>`;
+        });
+    }
+
+    // Charger les prédictions 1X2 par défaut au démarrage
+    filtrerOnglet('1X2');
 </script>
 
 </body>
