@@ -1,0 +1,71 @@
+<!DOCTYPE html>
+<html lang="fr">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Pronostics Foot Pro</title>
+    <style>
+        * { box-sizing: border-box; margin: 0; padding: 0; font-family: sans-serif; }
+        body { background-color: #f4f4f4; color: #333; }
+        .container { max-width: 500px; margin: auto; background: white; min-height: 100vh; }
+        
+        /* Header */
+        header { background: #2c3e50; color: white; padding: 15px; display: flex; justify-content: space-between; align-items: center; }
+        
+        /* Date & Nav */
+        .date-bar { display: flex; justify-content: space-between; padding: 10px; border-bottom: 1px solid #ddd; background: #fff; font-weight: bold; }
+        .nav-tabs { display: flex; overflow-x: auto; background: #fff; border-bottom: 1px solid #ddd; }
+        .tab { padding: 15px; cursor: pointer; white-space: nowrap; font-size: 0.9em; }
+        .tab.active { border-bottom: 3px solid #3498db; color: #3498db; }
+
+        /* Telegram Box */
+        .telegram { background: #e8f4fd; padding: 20px; text-align: center; margin: 10px; border-radius: 8px; }
+        .btn { background: #3498db; color: white; padding: 12px 25px; border: none; border-radius: 5px; display: inline-block; margin-top: 10px; text-decoration: none; font-weight: bold; }
+
+        /* Table */
+        table { width: 100%; border-collapse: collapse; margin-top: 10px; }
+        th, td { padding: 12px; border-bottom: 1px solid #eee; text-align: center; }
+        .match-name { text-align: left; font-size: 0.9em; }
+        .pred { font-weight: bold; color: #2c3e50; background: #eee; padding: 5px 10px; border-radius: 4px; }
+    </style>
+</head>
+<body>
+
+<div class="container">
+    <header><strong>MYBETS TODAY</strong> <span>☰</span></header>
+    
+    <div class="date-bar"><span>&lt;</span> 30 Mai <span>&gt;</span></div>
+    
+    <div class="nav-tabs">
+        <div class="tab active">Predictions 1X2</div>
+        <div class="tab">Under/Over 2.5</div>
+        <div class="tab">BTTS</div>
+    </div>
+
+    <div class="telegram">
+        <p>Rejoignez notre groupe Telegram pour plus de pronostics.</p>
+        <a href="https://t.me/votre_lien" class="btn">Rejoindre le Groupe</a>
+    </div>
+
+    <table>
+        <thead><tr><th>Heure</th><th>Match</th><th>Pronostic</th></tr></thead>
+        <tbody id="match-body">
+            </tbody>
+    </table>
+</div>
+
+<script>
+    // FACILE : Modifiez uniquement cette liste pour mettre à jour vos matchs !
+    const matchs = [
+        { heure: "19:30", match: "Gimnasia vs Belgrano", pred: "2" },
+        { heure: "22:00", match: "Instituto vs Lanus", pred: "1" }
+    ];
+
+    const body = document.getElementById('match-body');
+    matchs.forEach(m => {
+        body.innerHTML += `<tr><td>${m.heure}</td><td class="match-name">${m.match}</td><td><span class="pred">${m.pred}</span></td></tr>`;
+    });
+</script>
+
+</body>
+</html>
