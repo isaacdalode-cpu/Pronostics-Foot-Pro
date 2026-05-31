@@ -2,170 +2,83 @@
 <html lang="fr">
 <head>
     <meta charset="UTF-8">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>BetMaster AI Pro</title>
+    <title>BetMaster AI</title>
     <style>
-        /* Styles de base inspirés de la photo 2 */
-        body { 
-            background-color: #121212; 
-            color: #ffffff; 
-            font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif; 
-            margin: 0; 
-            padding: 0; 
-        }
-        .container { 
-            max-width: 600px; 
-            margin: auto; 
-            background-color: #1a1a1a; 
-            min-height: 100vh; 
-            box-shadow: 0 0 10px rgba(0,0,0,0.5); 
-        }
-
-        /* --- HEADER --- */
-        header { 
-            text-align: center; 
-            padding: 25px; 
-            border-bottom: 2px solid #222; 
-            background-color: #000;
-        }
-        h1 { 
-            margin: 0; 
-            font-size: 1.8em; 
-            letter-spacing: 2px; 
-            color: #ffffff; 
-            font-weight: 800; 
-        }
-
-        /* --- ZONE DATE (Copie de la photo 2) --- */
-        .date-container {
-            display: flex;
-            background-color: #2a2a2a;
-            border-bottom: 2px solid #222;
-        }
-        .date-btn {
-            flex: 1;
-            text-align: center;
-            padding: 15px 5px;
-            color: #b0b0b0;
-            font-size: 0.9em;
-            text-decoration: none;
-            transition: 0.3s;
-        }
-        .date-btn.active {
-            background-color: #ffd700; /* Le Jaune d'Or */
-            color: #000;
-            font-weight: bold;
-        }
-        .date-btn:hover:not(.active) {
-            background-color: #333;
-        }
-
-        /* --- MENU ONGLETS PRONOS (Copie de la photo 2) --- */
-        .nav-tabs { 
-            display: flex; 
-            background-color: #222; 
-            border-bottom: 1px solid #333;
-        }
-        .tab-btn { 
-            flex: 1; 
-            text-align: center; 
-            padding: 15px; 
-            background: none; 
-            border: none; 
-            color: #b0b0b0; 
-            cursor: pointer; 
-            font-size: 0.95em; 
-            font-weight: bold;
-            transition: 0.3s;
-        }
-        .tab-btn.active { 
-            background-color: #ffd700; 
-            color: #000; 
-        }
-
-        /* --- VOTRE TABLEAU BETMASTER --- */
-        table { 
-            width: 100%; 
-            border-collapse: collapse; 
-            background-color: #1a1a1a;
-            margin-top: 10px;
-        }
-        th { 
-            background: #2a2a2a; 
-            color: #fff; 
-            padding: 15px; 
-            border-bottom: 1px solid #333; 
-            text-align: left; 
-            font-size: 0.9em;
-        }
-        td { 
-            padding: 15px; 
-            border-bottom: 1px solid #2a2a2a; 
-            color: #ddd; 
-            vertical-align: top;
-            font-size: 0.9em;
-        }
+        body { background-color: #121212; color: #ffffff; font-family: sans-serif; margin: 0; }
+        .container { max-width: 600px; margin: auto; background-color: #1a1a1a; min-height: 100vh; }
+        header { text-align: center; padding: 20px; background-color: #000; font-size: 1.5em; font-weight: bold; }
         
-        /* Personnalisation des colonnes */
-        .match-col { font-weight: bold; color: #fff; line-height: 1.4; }
-        .prono-col { color: #ccc; }
-        .conf-col { 
-            color: #00d4ff; /* Votre bleu d'origine */
-            font-weight: bold; 
-            text-align: center; 
-        }
+        .date-bar { display: flex; background: #222; }
+        .date-btn { flex: 1; padding: 15px; text-align: center; color: #aaa; border: none; background: none; }
+        .date-btn.active { background: #ffd700; color: #000; font-weight: bold; }
+
+        .nav-tabs { display: flex; background: #222; }
+        .tab-btn { flex: 1; padding: 15px; text-align: center; color: #fff; border: none; background: none; cursor: pointer; border-bottom: 3px solid transparent; }
+        .tab-btn.active { border-bottom: 3px solid #ffd700; background: #333; }
+
+        table { width: 100%; border-collapse: collapse; margin-top: 10px; }
+        th { padding: 15px; text-align: left; color: #aaa; font-size: 0.9em; }
+        td { padding: 15px; border-bottom: 1px solid #333; }
+        .conf-col { color: #00d4ff; font-weight: bold; text-align: center; }
     </style>
 </head>
 <body>
 
 <div class="container">
-    <header><h1>BETMASTER AI</h1></header>
-
-    <div class="date-container">
-        <a href="#" class="date-btn">« Samedi</a>
-        <a href="#" class="date-btn active">Dimanche<br>31/05/2026</a>
-        <a href="#" class="date-btn">Lundi »</a>
+    <header>BETMASTER AI</header>
+    
+    <div class="date-bar">
+        <div class="date-btn">« Samedi</div>
+        <div class="date-btn active">Dimanche<br>31/05/2026</div>
+        <div class="date-btn">Lundi »</div>
     </div>
 
     <div class="nav-tabs">
-        <button class="tab-btn active">1X2</button>
-        <button class="tab-btn">Score</button>
-        <button class="tab-btn">Buts</button>
-        <button class="tab-btn">Premium</button>
+        <button class="tab-btn active" onclick="show('1X2', this)">1X2</button>
+        <button class="tab-btn" onclick="show('Score', this)">Score</button>
+        <button class="tab-btn" onclick="show('Buts', this)">Buts</button>
+        <button class="tab-btn" onclick="show('Premium', this)">Premium</button>
     </div>
 
     <table>
-        <thead>
-            <tr>
-                <th>Match</th>
-                <th>Pronostic</th>
-                <th>Confiance</th>
-            </tr>
-        </thead>
-        <tbody>
-            <tr>
-                <td class="match-col">Burgos CF vs<br>FC Andorra</td>
-                <td class="prono-col">2nd Half</td>
-                <td class="conf-col">64%</td>
-            </tr>
-            <tr>
-                <td class="match-col">CD Leganes vs<br>CD Mirandes</td>
-                <td class="prono-col">Plus de 1,5 buts</td>
-                <td class="conf-col">65%</td>
-            </tr>
-            <tr>
-                <td class="match-col">CD Leganes vs<br>CD Mirandes</td>
-                <td class="prono-col">Score exact 1-1</td>
-                <td class="conf-col">65%</td>
-            </tr>
-            <tr>
-                <td class="match-col">Vllaznia Shkoder vs<br>AF Elbasani</td>
-                <td class="prono-col">PLUS DE 1,5 BUTS</td>
-                <td class="conf-col">72%</td>
-            </tr>
-        </tbody>
+        <thead><tr><th>Match</th><th>Pronostic</th><th>Confiance</th></tr></thead>
+        <tbody id="tableBody"></tbody>
     </table>
 </div>
 
+<script>
+    // TES DONNÉES : Change le contenu ici quand tu veux
+    const db = {
+        '1X2': [
+            {m: "Burgos CF vs FC Andorra", p: "2nd Half", c: "64%"},
+            {m: "CD Leganes vs CD Mirandes", p: "Plus de 1,5 buts", c: "65%"}
+        ],
+        'Score': [
+            {m: "CD Leganes vs CD Mirandes", p: "Score exact 1-1", c: "65%"}
+        ],
+        'Buts': [
+            {m: "Vllaznia Shkoder vs AF Elbasani", p: "PLUS DE 1,5 BUTS", c: "72%"}
+        ],
+        'Premium': [
+            {m: "Match Premium", p: "Analyse Pro", c: "90%"}
+        ]
+    };
+
+    function show(type, btn) {
+        // Gérer le style des boutons
+        document.querySelectorAll('.tab-btn').forEach(b => b.classList.remove('active'));
+        btn.classList.add('active');
+
+        // Remplir le tableau
+        const body = document.getElementById('tableBody');
+        body.innerHTML = "";
+        db[type].forEach(item => {
+            body.innerHTML += `<tr><td>${item.m}</td><td>${item.p}</td><td class="conf-col">${item.c}</td></tr>`;
+        });
+    }
+
+    // Chargement initial
+    show('1X2', document.querySelector('.tab-btn'));
+</script>
 </body>
 </html>
