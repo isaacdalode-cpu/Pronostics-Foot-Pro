@@ -48,37 +48,40 @@
 </div>
 
 <script>
+    // TES DONNÉES RANGÉES PAR CATÉGORIE
     const db = {
-        '1X2': [
-            {m: "Burgos CF vs FC Andorra", p: "2nd Half", c: "64%"},
-            {m: "CD Leganes vs CD Mirandes", p: "Plus de 1,5 buts", c: "65%"}
-        ],
+        '1X2': [],
         'Score': [
             {m: "CD Leganes vs CD Mirandes", p: "Score exact 1-1", c: "65%"}
         ],
         'HalfGoals': [
-            {m: "Vllaznia Shkoder vs AF Elbasani", p: "1st Half / Égalité / 2nd Half", c: "72%"}
+            {m: "Burgos CF vs FC Andorra", p: "2nd Half", c: "64%"},
+            {m: "Vllaznia Shkoder vs AF Elbasani", p: "2nd Half", c: "72%"}
         ],
-        'MoreGoals': [],
-        'Premium': [
-            {m: "Match Premium", p: "Analyse Pro", c: "90%"}
-        ]
+        'MoreGoals': [
+            {m: "CD Leganes vs CD Mirandes", p: "Plus de 1,5 buts", c: "65%"}
+        ],
+        'Premium': []
     };
 
     function show(type, btn) {
+        // Gérer les boutons actifs
         document.querySelectorAll('.tab-btn').forEach(b => b.classList.remove('active'));
         if(btn) btn.classList.add('active');
 
         const body = document.getElementById('tableBody');
         body.innerHTML = "";
-        if(db[type]) {
+        
+        // Affichage dynamique
+        if(db[type] && db[type].length > 0) {
             db[type].forEach(item => {
                 body.innerHTML += `<tr><td>${item.m}</td><td>${item.p}</td><td class="conf-col">${item.c}</td></tr>`;
             });
         }
     }
 
-    show('1X2');
+    // Afficher le premier onglet par défaut
+    show('1X2', document.querySelector('.tab-btn'));
 </script>
 </body>
 </html>
