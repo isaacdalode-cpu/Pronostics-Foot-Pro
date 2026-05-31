@@ -12,13 +12,13 @@
         .date-btn { flex: 1; padding: 15px; text-align: center; color: #aaa; border: none; background: none; }
         .date-btn.active { background: #ffd700; color: #000; font-weight: bold; }
 
-        .nav-tabs { display: flex; background: #222; }
-        .tab-btn { flex: 1; padding: 15px; text-align: center; color: #fff; border: none; background: none; cursor: pointer; border-bottom: 3px solid transparent; }
+        .nav-tabs { display: flex; background: #222; overflow-x: auto; }
+        .tab-btn { flex: 1; padding: 15px; text-align: center; color: #fff; border: none; background: none; cursor: pointer; font-size: 0.75em; font-weight: bold; white-space: nowrap; }
         .tab-btn.active { border-bottom: 3px solid #ffd700; background: #333; }
 
         table { width: 100%; border-collapse: collapse; margin-top: 10px; }
-        th { padding: 15px; text-align: left; color: #aaa; font-size: 0.9em; }
-        td { padding: 15px; border-bottom: 1px solid #333; }
+        th { padding: 15px; text-align: left; color: #aaa; font-size: 0.8em; }
+        td { padding: 15px; border-bottom: 1px solid #333; font-size: 0.9em; }
         .conf-col { color: #00d4ff; font-weight: bold; text-align: center; }
     </style>
 </head>
@@ -36,7 +36,8 @@
     <div class="nav-tabs">
         <button class="tab-btn active" onclick="show('1X2', this)">1X2</button>
         <button class="tab-btn" onclick="show('Score', this)">Score</button>
-        <button class="tab-btn" onclick="show('Buts', this)">Buts</button>
+        <button class="tab-btn" onclick="show('HalfGoals', this)">Half Goals</button>
+        <button class="tab-btn" onclick="show('MoreGoals', this)">More Goals</button>
         <button class="tab-btn" onclick="show('Premium', this)">Premium</button>
     </div>
 
@@ -47,7 +48,6 @@
 </div>
 
 <script>
-    // TES DONNÉES : Change le contenu ici quand tu veux
     const db = {
         '1X2': [
             {m: "Burgos CF vs FC Andorra", p: "2nd Half", c: "64%"},
@@ -56,29 +56,29 @@
         'Score': [
             {m: "CD Leganes vs CD Mirandes", p: "Score exact 1-1", c: "65%"}
         ],
-        'Buts': [
-            {m: "Vllaznia Shkoder vs AF Elbasani", p: "PLUS DE 1,5 BUTS", c: "72%"}
+        'HalfGoals': [
+            {m: "Vllaznia Shkoder vs AF Elbasani", p: "1st Half / Égalité / 2nd Half", c: "72%"}
         ],
+        'MoreGoals': [],
         'Premium': [
             {m: "Match Premium", p: "Analyse Pro", c: "90%"}
         ]
     };
 
     function show(type, btn) {
-        // Gérer le style des boutons
         document.querySelectorAll('.tab-btn').forEach(b => b.classList.remove('active'));
-        btn.classList.add('active');
+        if(btn) btn.classList.add('active');
 
-        // Remplir le tableau
         const body = document.getElementById('tableBody');
         body.innerHTML = "";
-        db[type].forEach(item => {
-            body.innerHTML += `<tr><td>${item.m}</td><td>${item.p}</td><td class="conf-col">${item.c}</td></tr>`;
-        });
+        if(db[type]) {
+            db[type].forEach(item => {
+                body.innerHTML += `<tr><td>${item.m}</td><td>${item.p}</td><td class="conf-col">${item.c}</td></tr>`;
+            });
+        }
     }
 
-    // Chargement initial
-    show('1X2', document.querySelector('.tab-btn'));
+    show('1X2');
 </script>
 </body>
 </html>
